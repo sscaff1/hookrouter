@@ -1,0 +1,31 @@
+import React from 'react';
+import isNode from './isNode';
+let currentTitle = '';
+/**
+ * This hook will set the window title, when a component gets mounted.
+ * When the component gets unmounted, the previously used title will be restored.
+ * @param {string} inString
+ */
+
+export const useTitle = inString => {
+  currentTitle = inString;
+
+  if (isNode) {
+    return;
+  }
+
+  React.useEffect(() => {
+    const previousTitle = document.title;
+    document.title = inString;
+    return () => {
+      document.title = previousTitle;
+    };
+  });
+};
+/**
+ * Returns the current window title to be used in a SSR context
+ * @returns {string}
+ */
+
+export const getTitle = () => currentTitle;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy90aXRsZS5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsImlzTm9kZSIsImN1cnJlbnRUaXRsZSIsInVzZVRpdGxlIiwiaW5TdHJpbmciLCJ1c2VFZmZlY3QiLCJwcmV2aW91c1RpdGxlIiwiZG9jdW1lbnQiLCJ0aXRsZSIsImdldFRpdGxlIl0sIm1hcHBpbmdzIjoiQUFBQSxPQUFPQSxLQUFQLE1BQWtCLE9BQWxCO0FBQ0EsT0FBT0MsTUFBUCxNQUFtQixVQUFuQjtBQUVBLElBQUlDLFlBQVksR0FBRyxFQUFuQjtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBQ0EsT0FBTyxNQUFNQyxRQUFRLEdBQUlDLFFBQUQsSUFBYztBQUNyQ0YsRUFBQUEsWUFBWSxHQUFHRSxRQUFmOztBQUVBLE1BQUdILE1BQUgsRUFBVTtBQUNUO0FBQ0E7O0FBRURELEVBQUFBLEtBQUssQ0FBQ0ssU0FBTixDQUFnQixNQUFNO0FBQ3JCLFVBQU1DLGFBQWEsR0FBR0MsUUFBUSxDQUFDQyxLQUEvQjtBQUNBRCxJQUFBQSxRQUFRLENBQUNDLEtBQVQsR0FBaUJKLFFBQWpCO0FBQ0EsV0FBTyxNQUFNO0FBQ1pHLE1BQUFBLFFBQVEsQ0FBQ0MsS0FBVCxHQUFpQkYsYUFBakI7QUFDQSxLQUZEO0FBR0EsR0FORDtBQU9BLENBZE07QUFnQlA7QUFDQTtBQUNBO0FBQ0E7O0FBQ0EsT0FBTyxNQUFNRyxRQUFRLEdBQUcsTUFBTVAsWUFBdkIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xyXG5pbXBvcnQgaXNOb2RlIGZyb20gJy4vaXNOb2RlJztcclxuXHJcbmxldCBjdXJyZW50VGl0bGUgPSAnJztcclxuXHJcbi8qKlxyXG4gKiBUaGlzIGhvb2sgd2lsbCBzZXQgdGhlIHdpbmRvdyB0aXRsZSwgd2hlbiBhIGNvbXBvbmVudCBnZXRzIG1vdW50ZWQuXHJcbiAqIFdoZW4gdGhlIGNvbXBvbmVudCBnZXRzIHVubW91bnRlZCwgdGhlIHByZXZpb3VzbHkgdXNlZCB0aXRsZSB3aWxsIGJlIHJlc3RvcmVkLlxyXG4gKiBAcGFyYW0ge3N0cmluZ30gaW5TdHJpbmdcclxuICovXHJcbmV4cG9ydCBjb25zdCB1c2VUaXRsZSA9IChpblN0cmluZykgPT4ge1xyXG5cdGN1cnJlbnRUaXRsZSA9IGluU3RyaW5nO1xyXG5cclxuXHRpZihpc05vZGUpe1xyXG5cdFx0cmV0dXJuO1xyXG5cdH1cclxuXHJcblx0UmVhY3QudXNlRWZmZWN0KCgpID0+IHtcclxuXHRcdGNvbnN0IHByZXZpb3VzVGl0bGUgPSBkb2N1bWVudC50aXRsZTtcclxuXHRcdGRvY3VtZW50LnRpdGxlID0gaW5TdHJpbmc7XHJcblx0XHRyZXR1cm4gKCkgPT4ge1xyXG5cdFx0XHRkb2N1bWVudC50aXRsZSA9IHByZXZpb3VzVGl0bGU7XHJcblx0XHR9O1xyXG5cdH0pO1xyXG59O1xyXG5cclxuLyoqXHJcbiAqIFJldHVybnMgdGhlIGN1cnJlbnQgd2luZG93IHRpdGxlIHRvIGJlIHVzZWQgaW4gYSBTU1IgY29udGV4dFxyXG4gKiBAcmV0dXJucyB7c3RyaW5nfVxyXG4gKi9cclxuZXhwb3J0IGNvbnN0IGdldFRpdGxlID0gKCkgPT4gY3VycmVudFRpdGxlO1xyXG4iXX0=
