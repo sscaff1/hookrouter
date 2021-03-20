@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Paratron/hookrouter.git"
+    "url": "git+ssh://git@github.com/pureartisan/hookrouter.git"
   },
   "files": [
     "dist/*"
@@ -20,9 +20,9 @@
   "author": "Christian Engel <christian.engel@wearekiss.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Paratron/hookrouter/issues"
+    "url": "https://github.com/pureartisan/hookrouter/issues"
   },
-  "homepage": "https://github.com/Paratron/hookrouter#readme",
+  "homepage": "https://github.com/pureartisan/hookrouter#readme",
   "peerDependencies": {
     "react": "^16.8.0"
   },
