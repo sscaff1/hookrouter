@@ -1,6 +1,6 @@
 {
   "name": "@patched/hookrouter",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "A hook based router for React",
   "main": "dist/index.js",
   "scripts": {
