@@ -1,6 +1,6 @@
 {
   "name": "@ui/hookrouter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A hook based router for React",
   "main": "umd/index.js",
   "module": "esm/index.js",
