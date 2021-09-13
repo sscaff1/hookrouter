@@ -2,9 +2,11 @@
 
 NOTE: This is a patched version from the original [hookrouter](https://github.com/Paratron/hookrouter) package.
 
-This mainly fixes the following:
-- Support for React 17
-- Material UI Link bug fix due to missing `forwardRef`
+This package does the following:
+- fixes syntax errors
+- uses rollup instead of webpack
+- integrates eslint through @glu/eslint-config
+- integrate babel through @glu/babel-preset
 
 ----
 
