@@ -4,27 +4,7 @@ import isNode from './isNode';
 const queryParamListeners = [];
 let queryParamObject = {};
 
-export const setQueryParams = (inObj, replace = false) => {
-	if(!(inObj instanceof Object)){
-		throw new Error('Object required');
-	}
-	if(replace){
-		queryParamObject = inObj;
-	} else {
-		Object.assign(queryParamObject, inObj);
-	}
-	const now = Date.now();
-	queryParamListeners.forEach(cb => cb(now));
-	if (!isNode) {
-		const qs = '?' + objectToQueryString(queryParamObject);
-		if(qs === location.search) {
-			return;
-		}
-		history.replaceState(null, null, location.pathname + (qs !== '?' ? qs : ''));
-	}
-};
-
-export const getQueryParams = () => Object.assign({}, queryParamObject);
+export const getQueryParams = () => ({ ...queryParamObject });
 
 /**
  * This takes an URL query string and converts it into a javascript object.
@@ -32,12 +12,14 @@ export const getQueryParams = () => Object.assign({}, queryParamObject);
  * @return {object}
  */
 const queryStringToObject = (inStr) => {
-	const p = new URLSearchParams(inStr);
-	let result = {};
-	for (let param of p) {
-		result[param[0]] = param[1];
-	}
-	return result;
+  const p = new URLSearchParams(inStr);
+  const result = {};
+  // eslint-disable-next-line no-restricted-syntax
+  for (const param of p) {
+    // eslint-disable-next-line prefer-destructuring
+    result[param[0]] = param[1];
+  }
+  return result;
 };
 
 /**
@@ -46,14 +28,36 @@ const queryStringToObject = (inStr) => {
  * @return {string}
  */
 const objectToQueryString = (inObj) => {
-	const qs = new URLSearchParams();
-	Object.entries(inObj).forEach(([key, value]) => value !== undefined ? qs.append(key, value) : null);
-	return qs.toString();
+  const qs = new URLSearchParams();
+  Object
+    .entries(inObj)
+    .forEach(([key, value]) => (value !== undefined ? qs.append(key, value) : null));
+  return qs.toString();
 };
 
-if(!isNode){
-	queryParamObject = queryStringToObject(location.search.substr(1));
+if (!isNode) {
+  queryParamObject = queryStringToObject(window.location.search.substr(1));
 }
+
+export const setQueryParams = (inObj, replace = false) => {
+  if (!(inObj instanceof Object)) {
+    throw new Error('Object required');
+  }
+  if (replace) {
+    queryParamObject = inObj;
+  } else {
+    Object.assign(queryParamObject, inObj);
+  }
+  const now = Date.now();
+  queryParamListeners.forEach((cb) => cb(now));
+  if (!isNode) {
+    const qs = `?${objectToQueryString(queryParamObject)}`;
+    if (qs === window.location.search) {
+      return;
+    }
+    window.history.replaceState(null, null, window.location.pathname + (qs !== '?' ? qs : ''));
+  }
+};
 
 /**
  * This hook returns the currently set query parameters as object and offers a setter function
@@ -65,19 +69,19 @@ if(!isNode){
  * @returns {array} [queryParamObject, setQueryParams]
  */
 export const useQueryParams = () => {
-	const setUpdate = React.useState(0)[1];
+  const setUpdate = React.useState(0)[1];
 
-	React.useEffect(() => {
-		queryParamListeners.push(setUpdate);
+  React.useEffect(() => {
+    queryParamListeners.push(setUpdate);
 
-		return () => {
-			const index = queryParamListeners.indexOf(setUpdate);
-			if (index === -1) {
-				return;
-			}
-			queryParamListeners.splice(index, 1);
-		};
-	}, [setUpdate]);
+    return () => {
+      const index = queryParamListeners.indexOf(setUpdate);
+      if (index === -1) {
+        return;
+      }
+      queryParamListeners.splice(index, 1);
+    };
+  }, [setUpdate]);
 
-	return [queryParamObject, setQueryParams];
+  return [queryParamObject, setQueryParams];
 };

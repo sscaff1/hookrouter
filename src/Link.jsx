@@ -1,5 +1,5 @@
-import React from "react";
-import {navigate, getBasepath} from "./router";
+import React from 'react';
+import { navigate, getBasepath } from './router';
 
 /**
  * Accepts HTML `a`-tag properties, requiring `href` and optionally
@@ -18,22 +18,19 @@ import {navigate, getBasepath} from "./router";
  * @param {Object} props Requires `href`. `onClick` is optional.
  */
 export const setLinkProps = (props) => {
-	const onClick = (e) => {
-		if (!e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey && props.target !== "_blank") {
-			e.preventDefault(); // prevent the link from actually navigating
-			navigate(e.currentTarget.href);
-		}
+  const onClick = (e) => {
+    if (!e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey && props.target !== '_blank') {
+      e.preventDefault(); // prevent the link from actually navigating
+      navigate(e.currentTarget.href);
+    }
 
-		if (props.onClick) {
-			props.onClick(e);
-		}
-	};
-	const href =
-		props.href.substr(0, 1) === '/'
-			? getBasepath() + props.href
-			: props.href;
+    if (props.onClick) {
+      props.onClick(e);
+    }
+  };
+  const href = props.href.substr(0, 1) === '/' ? getBasepath() + props.href : props.href;
 
-	return {...props, href, onClick};
+  return { ...props, href, onClick };
 };
 
 /**
@@ -48,6 +45,5 @@ export const setLinkProps = (props) => {
  *
  * @param {Object} props Requires `href`. `onClick` is optional
  */
-export const A = React.forwardRef(
-   (props, ref) => <a ref={ref} {...setLinkProps(props)} />
-);
+// eslint-disable-next-line jsx-a11y/anchor-has-content, react/jsx-props-no-spreading
+export const A = React.forwardRef((props, ref) => <a ref={ref} {...setLinkProps(props)} />);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import isNode from './isNode';
 
 let currentTitle = '';
@@ -9,19 +9,21 @@ let currentTitle = '';
  * @param {string} inString
  */
 export const useTitle = (inString) => {
-	currentTitle = inString;
+  currentTitle = inString;
 
-	if(isNode){
-		return;
-	}
-
-	React.useEffect(() => {
-		const previousTitle = document.title;
-		document.title = inString;
-		return () => {
-			document.title = previousTitle;
-		};
-	});
+  useEffect(() => {
+    if (isNode) {
+      return () => {};
+    }
+    const previousTitle = document.title;
+    document.title = inString;
+    return () => {
+      if (isNode) {
+        return;
+      }
+      document.title = previousTitle;
+    };
+  });
 };
 
 /**
