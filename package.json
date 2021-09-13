@@ -11,7 +11,11 @@
     "build": "npm run clean && npm run copy && rollup -c",
     "devPackage": "npm run lint && npm run test && npm run build && cd dist && npm pack",
     "clean": "shx rm -rf dist",
-    "copy": "shx mkdir dist && shx cp -r src dist/src && shx cp {package.json,README.md,.npmignore} dist && shx cp -r types dist"
+    "copy": "shx mkdir dist && shx cp -r src dist/src && shx cp {package.json,README.md,.npmignore} dist && shx cp -r types dist",
+    "publishMe": "npm publish ./dist"
+  },
+  "publishConfig": {
+    "registry": "http://ux-nexus.saas-n.com/repository/ux-npm/"
   },
   "repository": {
     "type": "git",
