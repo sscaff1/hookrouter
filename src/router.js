@@ -74,7 +74,7 @@ const prepareRoute = (inRoute) => {
  * @param {object} [queryParams] Key/Value pairs to convert into get parameters to be appended to the URL.
  * @param {boolean} [replaceQueryParams=true] Should existing query parameters be carried over, or dropped (replaced)?
  */
-export const navigate = (url, replace = false, queryParams = null, replaceQueryParams = true) => {
+export const navigate = (url, replace = false, queryParams = null, replaceQueryParams = true, state = null) => {
 	url = interceptRoute(currentPath, resolvePath(url));
 
 	if (!url || url === currentPath) {
@@ -97,7 +97,7 @@ export const navigate = (url, replace = false, queryParams = null, replaceQueryP
 		:
 		url;
 
-	window.history[`${replace ? 'replace' : 'push'}State`](null, null, finalURL);
+	window.history[`${replace ? 'replace' : 'push'}State`](state, null, finalURL);
 	processStack();
 	updatePathHooks();
 
@@ -172,6 +172,7 @@ export const getWorkingPath = (parentRouterId) => {
 	}
 	const stackEntry = stack[parentRouterId];
 	if (!stackEntry) {
+		// this should not be reached at all
 		throw 'wth';
 	}
 
@@ -207,14 +208,14 @@ if (!isNode) {
 		if (!nextPath || nextPath === currentPath) {
 			e.preventDefault();
 			e.stopPropagation();
-			history.pushState(null, null, currentPath);
+			history.pushState(history.state, null, currentPath);
 			return;
 		}
 
 		currentPath = nextPath;
 
 		if (nextPath !== location.pathname) {
-			history.replaceState(null, null, nextPath);
+			history.replaceState(history.state, null, nextPath);
 		}
 		processStack();
 		updatePathHooks();
@@ -238,6 +239,10 @@ const process = (stackObj, directCall) => {
 		resultProps,
 		reducedPath: previousReducedPath
 	} = stackObj;
+
+	if (!stack[routerId]) {
+		return;
+	}
 
 	const currentPath = getWorkingPath(parentRouterId);
 	let route = null;
@@ -268,10 +273,6 @@ const process = (stackObj, directCall) => {
 		reducedPath = currentPath.replace(result[0], '');
 		anyMatched = true;
 		break;
-	}
-
-	if (!stack[routerId]) {
-		return;
 	}
 
 	if (!anyMatched) {

@@ -1,5 +1,13 @@
 # React Hook Router
 
+NOTE: This is a patched version from the original [hookrouter](https://github.com/Paratron/hookrouter) package.
+
+This mainly fixes the following:
+- Support for React 17
+- Material UI Link bug fix due to missing `forwardRef`
+
+----
+
 The modern alternative to react-router.
 
 Tested from `React 16.8.1` upwards.
@@ -15,10 +23,10 @@ This project is not and will not be written in typescript.
 Thanks to the github user [@mcaneris](https://github.com/mcaneris), you can install types via:
 
     npm i @types/hookrouter
-    
-I did not check if those types are correct nor will I keep them up to date with future releases. 
-    
-    
+
+I did not check if those types are correct nor will I keep them up to date with future releases.
+
+
 ## Documentation
 Detailed documentation about how to use hookrouter can be [found here](https://github.com/Paratron/hookrouter/blob/master/src-docs/pages/en/README.md)
 
@@ -32,10 +40,10 @@ const routes = {
     '/products': () => <ProductOverview />,
     '/products/:id': ({id}) => <ProductDetails id={id} />
 };
-	
+
 const MyApp = () => {
     const routeResult = useRoutes(routes);
-    
+
     return routeResult || <NotFoundPage />;
 }
 ```
