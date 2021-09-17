@@ -1,5 +1,5 @@
 {
-  "name": "hook-router",
+  "name": "@sscaff1/hookrouter",
   "version": "1.3.0",
   "description": "A hook based router for React",
   "main": "umd/index.js",
