@@ -17,24 +17,14 @@ Tested from `React 16.8.1` upwards.
 ## How to install
 Well, this is straightforward:
 
-    npm i hookrouter
-
-## Typescript
-This project is not and will not be written in typescript.
-
-Thanks to the github user [@mcaneris](https://github.com/mcaneris), you can install types via:
-
-    npm i @types/hookrouter
-
-I did not check if those types are correct nor will I keep them up to date with future releases.
-
+    npm i hook-router
 
 ## Documentation
 Detailed documentation about how to use hookrouter can be [found here](https://github.com/Paratron/hookrouter/blob/master/src-docs/pages/en/README.md)
 
 ## A quick example
 ```jsx harmony
-import {useRoutes} from 'hookrouter';
+import {useRoutes} from 'hook-router';
 
 const routes = {
     '/': () => <HomePage />,
