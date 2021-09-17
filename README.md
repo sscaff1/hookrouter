@@ -17,7 +17,7 @@ Tested from `React 16.8.1` upwards.
 ## How to install
 Well, this is straightforward:
 
-    npm i hook-router
+    npm i hookrouter-react
 
 ## Documentation
 Detailed documentation about how to use hookrouter can be [found here](https://github.com/Paratron/hookrouter/blob/master/src-docs/pages/en/README.md)
