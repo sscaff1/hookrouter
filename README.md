@@ -1,4 +1,4 @@
-# hook-router
+# hookrouter-react
 
 NOTE: This is a patched version from the original [hookrouter](https://github.com/Paratron/hookrouter) package.
 
