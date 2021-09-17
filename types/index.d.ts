@@ -7,13 +7,13 @@
 import * as React from 'react';
 
 type InterceptedPath = string | null;
-interface AProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface AProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
 }
-interface QueryParams {
+export interface QueryParams {
   [key: string]: any;
 }
-interface RouteObject<T = any> {
+export interface RouteObject<T = any> {
   [key: string]: (params: QueryParams) => T;
 }
 export function setLinkProps(props: AProps): AProps;

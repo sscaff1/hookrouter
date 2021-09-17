@@ -10,42 +10,47 @@ function sourcemapPathTransform(relativePath) {
   return `./${pkg.name}/${relativePath.replace(/^(\.\.[\\/])*/, '')}`;
 }
 
-const createUMDName = (packageName) => packageName
-  .replace('@', '')
-  .replace('/', '-')
-  .split('-')
-  .map((value, index) => (index ? value[0].toUpperCase() + value.slice(1) : value))
-  .join('');
+const createUMDName = (packageName) =>
+  packageName
+    .replace('@', '')
+    .replace('/', '-')
+    .split('-')
+    .map((value, index) => (index ? value[0].toUpperCase() + value.slice(1) : value))
+    .join('');
 
 const umdName = createUMDName(name);
 
 export default {
   input: 'src/index.js',
-  output: [{
-    format: 'esm',
-    file: 'dist/esm/index.js',
-    sourcemap: true,
-    sourcemapPathTransform
-  }, {
-    format: 'cjs',
-    file: 'dist/cjs/index.js',
-    sourcemap: true,
-    sourcemapPathTransform
-  }, {
-    format: 'umd',
-    file: 'dist/umd/index.js',
-    name: umdName,
-    globals: {
-      react: 'React'
-    }
-  }],
+  output: [
+    {
+      format: 'esm',
+      file: 'dist/esm/index.js',
+      sourcemap: true,
+      sourcemapPathTransform,
+    },
+    {
+      format: 'cjs',
+      file: 'dist/cjs/index.js',
+      sourcemap: true,
+      sourcemapPathTransform,
+    },
+    {
+      format: 'umd',
+      file: 'dist/umd/index.js',
+      name: umdName,
+      globals: {
+        react: 'React',
+      },
+    },
+  ],
   external: Object.keys(peerDependencies).concat(Object.keys(dependencies || {})),
   plugins: [
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
     }),
     resolve({
-      extensions: ['.js', '.jsx']
-    })
-  ]
+      extensions: ['.js', '.jsx'],
+    }),
+  ],
 };

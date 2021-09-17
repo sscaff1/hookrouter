@@ -1,12 +1,12 @@
-# React Hook Router
+# hook-router
 
 NOTE: This is a patched version from the original [hookrouter](https://github.com/Paratron/hookrouter) package.
 
 This package does the following:
 - fixes syntax errors
 - uses rollup instead of webpack
-- integrates eslint through @glu/eslint-config
-- integrate babel through @glu/babel-preset
+- integrates eslint
+- integrates babel
 
 ----
 

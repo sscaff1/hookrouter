@@ -20,7 +20,7 @@ const useControlledInterceptor = () => {
       setInterceptedPath(nextPath);
       return currentPath;
     },
-    [setInterceptedPath]
+    [setInterceptedPath],
   );
 
   const stopInterception = useInterceptor(interceptorFunction);
@@ -30,13 +30,10 @@ const useControlledInterceptor = () => {
       stopInterception();
       navigate(interceptedPath);
     },
-    [stopInterception, interceptedPath]
+    [stopInterception, interceptedPath],
   );
 
-  const resetPath = React.useMemo(
-    () => () => setInterceptedPath(null),
-    [setInterceptedPath]
-  );
+  const resetPath = React.useMemo(() => () => setInterceptedPath(null), [setInterceptedPath]);
 
   return [interceptedPath, confirmNavigation, resetPath, stopInterception];
 };

@@ -57,8 +57,8 @@ const prepareRoute = (inRoute) => {
     new RegExp(
       `${inRoute.substr(0, 1) === '*' ? '' : '^'}${inRoute
         .replace(/:[a-zA-Z]+/g, '([^/]+)')
-        .replace(/\*/g, '')}${inRoute.substr(-1) === '*' ? '' : '$'}`
-    )
+        .replace(/\*/g, '')}${inRoute.substr(-1) === '*' ? '' : '$'}`,
+    ),
   ];
 
   const propList = inRoute.match(/:[a-zA-Z]+/g);
@@ -159,10 +159,8 @@ const objectsEqual = (objA, objB) => {
   const objAKeys = Object.keys(objA);
   const objBKeys = Object.keys(objB);
 
-  const valueIsEqual = (key) => Object
-    .prototype
-    .hasOwnProperty
-    .call(objB, key) && objA[key] === objB[key];
+  const valueIsEqual = (key) =>
+    Object.prototype.hasOwnProperty.call(objB, key) && objA[key] === objB[key];
 
   return objAKeys.length === objBKeys.length && objAKeys.every(valueIsEqual);
 };
@@ -181,7 +179,7 @@ const process = (stackObj, directCall) => {
     setUpdate,
     resultFunc,
     resultProps,
-    reducedPath: previousReducedPath
+    reducedPath: previousReducedPath,
   } = stackObj;
 
   if (!stack[routerId]) {
@@ -234,9 +232,9 @@ const process = (stackObj, directCall) => {
       propsDiffer = false;
     } else {
       propsDiffer = !(
-        resultProps
-        && targetProps
-        && objectsEqual(resultProps, targetProps) === true
+        resultProps &&
+        targetProps &&
+        objectsEqual(resultProps, targetProps) === true
       );
     }
 
@@ -247,17 +245,18 @@ const process = (stackObj, directCall) => {
     }
   }
 
-  const result = funcsDiffer || propsDiffer
-    ? targetFunction
-      ? targetFunction(targetProps)
-      : null
-    : stackObj.result;
+  const result =
+    funcsDiffer || propsDiffer
+      ? targetFunction
+        ? targetFunction(targetProps)
+        : null
+      : stackObj.result;
 
   Object.assign(stack[routerId], {
     result,
     reducedPath,
     matchedRoute: route,
-    passContext: route ? route.substr(-1) === '*' : false
+    passContext: route ? route.substr(-1) === '*' : false,
   });
 
   if (!directCall && (funcsDiffer || propsDiffer || route === null)) {
@@ -295,9 +294,10 @@ if (!isNode) {
  * @param originalResult
  * @returns {function(): *}
  */
-const wrapperFunction = (RouteContext, originalResult) => function (...args) {
-  return <RouteContext>{originalResult.apply(originalResult, args)}</RouteContext>;
-};
+const wrapperFunction = (RouteContext, originalResult) =>
+  function (...args) {
+    return <RouteContext>{originalResult.apply(originalResult, args)}</RouteContext>;
+  };
 
 /**
  * Pass an object to this function where the keys are routes and the values
@@ -338,7 +338,7 @@ export const useRoutes = (routeObj) => {
       matchedRoute: null,
       reducedPath: null,
       passContext: false,
-      result: null
+      result: null,
     };
 
     stack[routerId] = stackObj;
@@ -389,7 +389,7 @@ export const navigate = (
   replace = false,
   queryParams = null,
   replaceQueryParams = true,
-  state = null
+  state = null,
 ) => {
   const newUrl = interceptRoute(currentPath, resolvePath(url));
 
@@ -407,7 +407,9 @@ export const navigate = (
   }
 
   const finalURL = basePathRegEx
-    ? (newUrl.match(basePathRegEx) ? newUrl : basePath + newUrl)
+    ? newUrl.match(basePathRegEx)
+      ? newUrl
+      : basePath + newUrl
     : newUrl;
 
   window.history[`${replace ? 'replace' : 'push'}State`](state, null, finalURL);

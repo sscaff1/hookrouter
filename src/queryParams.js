@@ -29,9 +29,9 @@ const queryStringToObject = (inStr) => {
  */
 const objectToQueryString = (inObj) => {
   const qs = new URLSearchParams();
-  Object
-    .entries(inObj)
-    .forEach(([key, value]) => (value !== undefined ? qs.append(key, value) : null));
+  Object.entries(inObj).forEach(([key, value]) =>
+    value !== undefined ? qs.append(key, value) : null,
+  );
   return qs.toString();
 };
 

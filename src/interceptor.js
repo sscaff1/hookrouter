@@ -10,10 +10,11 @@ export const interceptRoute = (previousRoute, nextRoute) => {
   }
 
   return interceptors.reduceRight(
-    (nextNewRoute, interceptor) => (nextNewRoute === previousRoute
-      ? nextNewRoute
-      : interceptor.handlerFunction(previousRoute, nextNewRoute)),
-    nextRoute
+    (nextNewRoute, interceptor) =>
+      nextNewRoute === previousRoute
+        ? nextNewRoute
+        : interceptor.handlerFunction(previousRoute, nextNewRoute),
+    nextRoute,
   );
 };
 
@@ -26,7 +27,7 @@ const remove = (componentId) => {
 };
 
 export const useInterceptor = (handlerFunction) => {
-  const [componentId] = React.useState(incrementalId += 1);
+  const [componentId] = React.useState((incrementalId += 1));
 
   let obj = get(componentId);
 
@@ -34,7 +35,7 @@ export const useInterceptor = (handlerFunction) => {
     obj = {
       componentId,
       stop: () => remove(componentId),
-      handlerFunction
+      handlerFunction,
     };
 
     interceptors.unshift(obj);

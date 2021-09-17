@@ -4,7 +4,7 @@ import { navigate, getBasepath } from '../../src/router';
 import { A, setLinkProps } from '../../src';
 
 // allow us to mock navigate and getBasepath
-jest.mock('../src/router');
+jest.mock('../../src/router');
 
 describe('Link.js', () => {
   describe('useLink', () => {
@@ -22,8 +22,8 @@ describe('Link.js', () => {
       const e = {
         preventDefault: jest.fn(),
         currentTarget: {
-          href: 'onClick1'
-        }
+          href: 'onClick1',
+        },
       };
 
       onClick(e);
@@ -42,8 +42,8 @@ describe('Link.js', () => {
       const e = {
         preventDefault: jest.fn(),
         currentTarget: {
-          href: 'onClick2'
-        }
+          href: 'onClick2',
+        },
       };
 
       onClick(e);
@@ -67,9 +67,7 @@ describe('Link.js', () => {
     test('renders correctly with href', () => {
       getBasepath.mockReturnValue('');
 
-      const tree = renderer
-        .create(<A href="/Paratron/hookrouter">hookrouter</A>)
-        .toJSON();
+      const tree = renderer.create(<A href="/Paratron/hookrouter">hookrouter</A>).toJSON();
 
       expect(tree).toMatchSnapshot();
     });
@@ -78,7 +76,11 @@ describe('Link.js', () => {
       getBasepath.mockReturnValue('');
 
       const tree = renderer
-        .create(<A href="/Paratron/hookrouter" onClick={() => null}>hookrouter</A>)
+        .create(
+          <A href="/Paratron/hookrouter" onClick={() => null}>
+            hookrouter
+          </A>,
+        )
         .toJSON();
 
       expect(tree).toMatchSnapshot();
@@ -88,7 +90,11 @@ describe('Link.js', () => {
       getBasepath.mockReturnValue('');
 
       const tree = renderer
-        .create(<A href="/Paratron/hookrouter" onClick={() => null} target="_blank">hookrouter</A>)
+        .create(
+          <A href="/Paratron/hookrouter" onClick={() => null} target="_blank">
+            hookrouter
+          </A>,
+        )
         .toJSON();
 
       expect(tree).toMatchSnapshot();
@@ -98,7 +104,11 @@ describe('Link.js', () => {
       getBasepath.mockReturnValue('/test4');
 
       const tree = renderer
-        .create(<A href="/Paratron/hookrouter" onClick={() => null} target="_blank">hookrouter</A>)
+        .create(
+          <A href="/Paratron/hookrouter" onClick={() => null} target="_blank">
+            hookrouter
+          </A>,
+        )
         .toJSON();
 
       expect(tree).toMatchSnapshot();
